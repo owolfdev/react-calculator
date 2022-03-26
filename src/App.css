@@ -36,3 +36,36 @@
     transform: rotate(360deg);
   }
 }
+
+#my-calculator {
+  /* background-color: pink; */
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+button {
+  height: 40px;
+}
+
+#numpad {
+  width: 300px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* #numpad > :nth-last-of-type(1) {
+  grid-column: span 2;
+} */
+
+/* #numpad > :first-of-type {
+  grid-column: span 2;
+} */
+
+#display {
+  display: grid;
+  align-items: center;
+  border: 1px solid gray;
+  height: 60px;
+  width: 300px;
+}

@@ -6,6 +6,7 @@ function App() {
   const [formula, setFormula] = React.useState([]);
   const [accumulatedInput, setAccumulatedInput] = React.useState("");
   const [display, setDisplay] = React.useState("0");
+  const [result, setResult] = React.useState(null);
 
   React.useEffect(() => {
     if (formula.length > 0) {
@@ -13,6 +14,7 @@ function App() {
     } else {
       setDisplay("0");
     }
+    setResult(null);
   }, [formula]);
 
   React.useEffect(() => {
@@ -62,28 +64,31 @@ function App() {
   };
 
   const handleCalculate = () => {
-    let evaluateExpression = (arr) => {
-      let operator = "";
-      let result = 0;
-      let currentNumber = 0;
-      arr.forEach((item) => {
-        if ("+-*/".includes(item)) {
-          operator = item;
-        } else {
-          currentNumber = Number(item);
-          if (operator === "+") result = result + currentNumber;
-          if (operator === "-") result = result - currentNumber;
-          if (operator === "*") result = result * currentNumber;
-          if (operator === "/") result = result / currentNumber;
-          if (operator === "") result = currentNumber;
-          operator = "";
-        }
-      });
-      return result;
-    };
+    if (result === null) {
+      let evaluateExpression = (arr) => {
+        let operator = "";
+        let result = 0;
+        let currentNumber = 0;
+        arr.forEach((item) => {
+          if ("+-*/".includes(item)) {
+            operator = item;
+          } else {
+            currentNumber = Number(item);
+            if (operator === "+") result = result + currentNumber;
+            if (operator === "-") result = result - currentNumber;
+            if (operator === "*") result = result * currentNumber;
+            if (operator === "/") result = result / currentNumber;
+            if (operator === "") result = currentNumber;
+            operator = "";
+          }
+        });
+        return result;
+      };
 
-    const result = evaluateExpression(formula);
-    setDisplay(`${display} = ${result}`);
+      const calculation = evaluateExpression(formula);
+      setResult(calculation);
+      setDisplay(`${display} = ${calculation}`);
+    }
   };
 
   const handleClear = (e) => {

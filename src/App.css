@@ -69,3 +69,8 @@ button {
   height: 60px;
   width: 300px;
 }
+
+.input {
+  background-color: lightgray;
+  height: 60px;
+}

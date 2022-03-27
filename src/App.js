@@ -37,6 +37,7 @@ function App() {
 
   //handle input
   const handleInput = (e) => {
+    console.log(e.target.innerHTML);
     let accInput;
     if (e.target.innerHTML === ".") {
       const last = formula[formula.length - 1];
@@ -169,6 +170,9 @@ function App() {
           <button onClick={handleCalculate} id="equals">
             =
           </button>
+          <div className="input" onClick={handleInput}>
+            8
+          </div>
         </div>
       </div>
     </div>

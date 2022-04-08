@@ -1,103 +1,56 @@
 import "./App.css";
 import React from "react";
+//import "https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js";
 
 function App() {
   const displayRef = React.useRef();
-  const [formula, setFormula] = React.useState([]);
-  const [accumulatedInput, setAccumulatedInput] = React.useState("");
+  const [formula, setFormula] = React.useState("");
+  const [formulaArray, setFormulaArray] = React.useState("");
   const [display, setDisplay] = React.useState("0");
   const [result, setResult] = React.useState(null);
 
   React.useEffect(() => {
-    if (formula.length > 0) {
-      setDisplay(formula.join(" "));
-    } else {
-      setDisplay("0");
-    }
-    setResult(null);
+    const formulaArrayTMP = formula.split(",");
+    displayRef.current.innerHTML = formulaArrayTMP.join(" ");
   }, [formula]);
 
-  React.useEffect(() => {
-    displayRef.current.innerHTML = display;
-  }, [display]);
+  React.useEffect(() => {}, [display]);
+
+  React.useState(() => {}, [formulaArray]);
 
   //handle input for operator
   const handleInputForOperator = (e) => {
-    if (!"+-*/".includes(formula[formula.length - 1])) {
-      if (formula.length > 0) {
-        setFormula([...formula, e.target.innerHTML]);
-      }
-      setAccumulatedInput("");
+    const formulaTest = formula;
+    if (
+      "+-*/".includes(
+        formulaTest
+          .split(",")
+          .join("")
+          .charAt(formulaTest.split(",").join("").length - 1)
+      )
+    ) {
+      console.log("you've already added an operator");
     } else {
-      let theFormula = formula.slice(0, -1);
-      theFormula.push(e.target.innerHTML);
-      setFormula(theFormula);
+      console.log(formula.charAt(formula.length - 1));
+      const operatorWithCommas = "," + e.target.innerHTML + ",";
+      setFormula(formula + operatorWithCommas);
     }
   };
 
   //handle input
   const handleInput = (e) => {
-    console.log(e.target.innerHTML);
-    let accInput;
-    if (e.target.innerHTML === ".") {
-      const last = formula[formula.length - 1];
-      if (last && last.includes(".")) {
-        return;
-      } else {
-        accInput = accumulatedInput + e.target.innerHTML;
-      }
-    } else if (accumulatedInput === "0") {
-      accInput = e.target.innerHTML;
-    } else {
-      accInput = accumulatedInput + e.target.innerHTML;
-    }
-
-    let form = formula;
-    if (form.length > 0) {
-      if ("+-*/".includes(form.at(-1))) {
-      } else {
-        form = form.slice(0, -1);
-      }
-    }
-    form.push(accInput);
-    setAccumulatedInput(accInput);
-    setFormula([...form]);
+    setFormula(formula + e.target.innerHTML);
   };
 
-  const handleCalculate = () => {
-    if (result === null) {
-      let evaluateExpression = (arr) => {
-        let operator = "";
-        let result = 0;
-        let currentNumber = 0;
-        arr.forEach((item) => {
-          if ("+-*/".includes(item)) {
-            operator = item;
-          } else {
-            currentNumber = Number(item);
-            if (operator === "+") result = result + currentNumber;
-            if (operator === "-") result = result - currentNumber;
-            if (operator === "*") result = result * currentNumber;
-            if (operator === "/") result = result / currentNumber;
-            if (operator === "") result = currentNumber;
-            operator = "";
-          }
-        });
-        return result;
-      };
-
-      const calculation = evaluateExpression(formula);
-      setResult(calculation);
-      setDisplay(`${display} = ${calculation}`);
-    }
+  const handleCalculate = (e) => {
+    console.log(eval(formula.split(",").join("")));
+    setFormula(eval(formula.split(",").join("")).toString());
   };
 
   const handleClear = (e) => {
     if (e.target.id === "clear-all") {
-      setAccumulatedInput("");
-      setFormula([]);
+      setFormula("");
     } else {
-      setAccumulatedInput("");
       setFormula(formula.slice(0, -1));
     }
   };
@@ -170,9 +123,14 @@ function App() {
           <button onClick={handleCalculate} id="equals">
             =
           </button>
-          <div className="input" onClick={handleInput}>
+          {/* <div
+            className="input"
+            onClick={() => {
+              console.log(formulaArray, formula);
+            }}
+          >
             8
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

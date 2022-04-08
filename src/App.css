@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .App-link {
@@ -45,13 +45,15 @@
 }
 
 button {
-  height: 40px;
+  height: 60px;
+  width: 100px;
 }
 
 #numpad {
   width: 300px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 10px;
 }
 
 /* #numpad > :nth-last-of-type(1) {

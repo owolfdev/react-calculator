@@ -42,6 +42,17 @@ function App() {
     setFormula(formula + e.target.innerHTML);
   };
 
+  const handleInputForDecimalPlace = (e) => {
+    const formulaSplit = formula.split(",");
+    const last = formulaSplit[formulaSplit.length - 1];
+    console.log(last);
+    if (last.includes(".")) {
+      console.log("you already have a .");
+    } else {
+      setFormula(formula + e.target.innerHTML);
+    }
+  };
+
   const handleCalculate = (e) => {
     console.log(eval(formula.split(",").join("")));
     setFormula(eval(formula.split(",").join("")).toString());
@@ -110,7 +121,7 @@ function App() {
           <button onClick={handleInput} id="eight">
             8
           </button>
-          <button onClick={handleInput} id="decimal">
+          <button onClick={handleInputForDecimalPlace} id="decimal">
             .
           </button>
           <button onClick={handleInput} id="nine">

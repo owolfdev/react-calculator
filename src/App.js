@@ -11,8 +11,30 @@ function App() {
 
   React.useEffect(() => {
     const formulaArrayTMP = formula.split(",");
-    displayRef.current.innerHTML = formulaArrayTMP.join(" ");
+    console.log(formulaArrayTMP);
+    const withCommas = formulaArrayTMP.map((item) => {
+      if (isOp(item)) {
+        console.log("its an operator");
+        return item;
+      } else {
+        return numberWithCommas(item);
+      }
+    });
+    console.log(withCommas);
+    displayRef.current.innerHTML = withCommas.join(" ");
   }, [formula]);
+
+  const isOp = (item) => {
+    if (item === "+" || item === "-" || item === "*" || item === "/") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   React.useEffect(() => {}, [display]);
 
@@ -74,74 +96,66 @@ function App() {
           0
         </div>
         <div id="numpad">
-          <button onClick={handleClear} id="clear-all">
+          <button onClick={handleClear} id="clear-all" class="clear">
             C
           </button>
-          <button onClick={handleClear} id="clear">
+          <button onClick={handleClear} id="clear" class="clear">
             CE
           </button>
-          <button onClick={handleInputForOperator} id="add">
+          <button onClick={handleInputForOperator} id="add" class="op">
             +
           </button>
 
-          <button onClick={handleInput} id="one">
+          <button onClick={handleInput} id="one" class="nums">
             1
           </button>
 
-          <button onClick={handleInput} id="two">
+          <button onClick={handleInput} id="two" class="nums">
             2
           </button>
-          <button onClick={handleInputForOperator} id="subtract">
+          <button onClick={handleInputForOperator} id="subtract" class="op">
             -
           </button>
-          <button onClick={handleInput} id="three">
+          <button onClick={handleInput} id="three" class="nums">
             3
           </button>
 
-          <button onClick={handleInput} id="four">
+          <button onClick={handleInput} id="four" class="nums">
             4
           </button>
-          <button onClick={handleInputForOperator} id="multiply">
+          <button onClick={handleInputForOperator} id="multiply" class="op">
             *
           </button>
-          <button onClick={handleInput} id="five">
+          <button onClick={handleInput} id="five" class="nums">
             5
           </button>
 
-          <button onClick={handleInput} id="six">
+          <button onClick={handleInput} id="six" class="nums">
             6
           </button>
-          <button onClick={handleInputForOperator} id="divide">
+          <button onClick={handleInputForOperator} id="divide" class="op">
             /
           </button>
-          <button onClick={handleInput} id="seven">
+          <button onClick={handleInput} id="seven" class="nums">
             7
           </button>
 
-          <button onClick={handleInput} id="eight">
+          <button onClick={handleInput} id="eight" class="nums">
             8
           </button>
-          <button onClick={handleInputForDecimalPlace} id="decimal">
+          <button onClick={handleInputForDecimalPlace} id="decimal" class="op">
             .
           </button>
-          <button onClick={handleInput} id="nine">
+          <button onClick={handleInput} id="nine" class="nums">
             9
           </button>
 
-          <button onClick={handleInput} id="zero">
+          <button onClick={handleInput} id="zero" class="nums">
             0
           </button>
-          <button onClick={handleCalculate} id="equals">
+          <button onClick={handleCalculate} id="equals" class="op">
             =
           </button>
-          {/* <div
-            className="input"
-            onClick={() => {
-              console.log(formulaArray, formula);
-            }}
-          >
-            8
-          </div> */}
         </div>
       </div>
     </div>

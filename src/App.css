@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: "Orbitron", sans-serif;
 }
 
 .App-logo {
@@ -38,10 +39,21 @@
 }
 
 #my-calculator {
-  /* background-color: pink; */
+  background-color: #2b221d;
   display: flex;
   justify-content: center;
   padding: 20px;
+  font-family: "Orbitron", sans-serif;
+}
+
+.op {
+  background-color: orange;
+  border: 1px solid grey;
+  font-family: "Orbitron", sans-serif;
+}
+
+#equals {
+  background-color: orange;
 }
 
 button {
@@ -70,9 +82,24 @@ button {
   border: 1px solid gray;
   height: 60px;
   width: 300px;
+  background-color: lightgray;
+  font-family: "Orbitron", sans-serif;
 }
 
 .input {
   background-color: lightgray;
   height: 60px;
+}
+
+.nums {
+  background-color: lightgray;
+  border: 1px solid gray;
+  font-family: "Orbitron", sans-serif;
+}
+
+.clear {
+  background-color: dimgray;
+  border: 1px solid gray;
+  font-family: "Orbitron", sans-serif;
+  color: lightgray;
 }

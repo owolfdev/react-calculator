@@ -1,26 +1,25 @@
 import "./App.css";
 import React from "react";
-//import "https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js";
 
 function App() {
   const displayRef = React.useRef();
-  const [formula, setFormula] = React.useState("");
-  const [formulaArray, setFormulaArray] = React.useState("");
-  const [display, setDisplay] = React.useState("0");
-  const [result, setResult] = React.useState(null);
+  const [formula, setFormula] = React.useState("0");
 
   React.useEffect(() => {
     const formulaArrayTMP = formula.split(",");
-    console.log(formulaArrayTMP);
     const withCommas = formulaArrayTMP.map((item) => {
       if (isOp(item)) {
-        console.log("its an operator");
         return item;
+      } else if (isDecimal(item)) {
+        const itemArray = item.split(".");
+        const firstItem = itemArray[0];
+        const secondItem = itemArray[1];
+        const firstItemWithCommas = numberWithCommas(firstItem);
+        return firstItemWithCommas + "." + secondItem;
       } else {
         return numberWithCommas(item);
       }
     });
-    console.log(withCommas);
     displayRef.current.innerHTML = withCommas.join(" ");
   }, [formula]);
 
@@ -32,17 +31,24 @@ function App() {
     }
   };
 
+  const isDecimal = (item) => {
+    if (item.includes(".")) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  React.useEffect(() => {}, [display]);
-
-  React.useState(() => {}, [formulaArray]);
-
   //handle input for operator
   const handleInputForOperator = (e) => {
     const formulaTest = formula;
+    if (formula === "0") {
+      return;
+    }
     if (
       "+-*/".includes(
         formulaTest
@@ -51,38 +57,40 @@ function App() {
           .charAt(formulaTest.split(",").join("").length - 1)
       )
     ) {
-      console.log("you've already added an operator");
+      return;
     } else {
-      console.log(formula.charAt(formula.length - 1));
       const operatorWithCommas = "," + e.target.innerHTML + ",";
       setFormula(formula + operatorWithCommas);
     }
   };
 
-  //handle input
+  //handle input for numbers
   const handleInput = (e) => {
-    setFormula(formula + e.target.innerHTML);
+    if (formula === "0") {
+      setFormula(e.target.innerHTML);
+    } else {
+      setFormula(formula + e.target.innerHTML);
+    }
   };
 
+  //handle input for decimal place
   const handleInputForDecimalPlace = (e) => {
     const formulaSplit = formula.split(",");
     const last = formulaSplit[formulaSplit.length - 1];
-    console.log(last);
     if (last.includes(".")) {
-      console.log("you already have a .");
+      return;
     } else {
       setFormula(formula + e.target.innerHTML);
     }
   };
 
   const handleCalculate = (e) => {
-    console.log(eval(formula.split(",").join("")));
     setFormula(eval(formula.split(",").join("")).toString());
   };
 
   const handleClear = (e) => {
-    if (e.target.id === "clear-all") {
-      setFormula("");
+    if (e.target.id === "clear" || formula.length === 1) {
+      setFormula("0");
     } else {
       setFormula(formula.slice(0, -1));
     }
@@ -96,64 +104,68 @@ function App() {
           0
         </div>
         <div id="numpad">
-          <button onClick={handleClear} id="clear-all" class="clear">
+          <button onClick={handleClear} id="clear" className="clear">
             C
           </button>
-          <button onClick={handleClear} id="clear" class="clear">
+          <button onClick={handleClear} id="clear-last" className="clear">
             CE
           </button>
-          <button onClick={handleInputForOperator} id="add" class="op">
+          <button onClick={handleInputForOperator} id="add" className="op">
             +
           </button>
 
-          <button onClick={handleInput} id="one" class="nums">
+          <button onClick={handleInput} id="one" className="nums">
             1
           </button>
 
-          <button onClick={handleInput} id="two" class="nums">
+          <button onClick={handleInput} id="two" className="nums">
             2
           </button>
-          <button onClick={handleInputForOperator} id="subtract" class="op">
+          <button onClick={handleInputForOperator} id="subtract" className="op">
             -
           </button>
-          <button onClick={handleInput} id="three" class="nums">
+          <button onClick={handleInput} id="three" className="nums">
             3
           </button>
 
-          <button onClick={handleInput} id="four" class="nums">
+          <button onClick={handleInput} id="four" className="nums">
             4
           </button>
-          <button onClick={handleInputForOperator} id="multiply" class="op">
+          <button onClick={handleInputForOperator} id="multiply" className="op">
             *
           </button>
-          <button onClick={handleInput} id="five" class="nums">
+          <button onClick={handleInput} id="five" className="nums">
             5
           </button>
 
-          <button onClick={handleInput} id="six" class="nums">
+          <button onClick={handleInput} id="six" className="nums">
             6
           </button>
-          <button onClick={handleInputForOperator} id="divide" class="op">
+          <button onClick={handleInputForOperator} id="divide" className="op">
             /
           </button>
-          <button onClick={handleInput} id="seven" class="nums">
+          <button onClick={handleInput} id="seven" className="nums">
             7
           </button>
 
-          <button onClick={handleInput} id="eight" class="nums">
+          <button onClick={handleInput} id="eight" className="nums">
             8
           </button>
-          <button onClick={handleInputForDecimalPlace} id="decimal" class="op">
+          <button
+            onClick={handleInputForDecimalPlace}
+            id="decimal"
+            className="op"
+          >
             .
           </button>
-          <button onClick={handleInput} id="nine" class="nums">
+          <button onClick={handleInput} id="nine" className="nums">
             9
           </button>
 
-          <button onClick={handleInput} id="zero" class="nums">
+          <button onClick={handleInput} id="zero" className="nums">
             0
           </button>
-          <button onClick={handleCalculate} id="equals" class="op">
+          <button onClick={handleCalculate} id="equals" className="op">
             =
           </button>
         </div>

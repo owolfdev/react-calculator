@@ -19,7 +19,6 @@ body {
   display: flex;
   justify-content: center;
   padding: 20px;
-
   font-family: var(--font-family);
   font-size: var(--font-size);
   color: var(--color);
@@ -38,12 +37,12 @@ body {
 }
 
 button {
-  height: 60px;
+  height: 100%;
   width: 100%;
 }
 
 #numpad {
-  width: 100%;
+  width: 400px;
   height: 500px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -55,8 +54,7 @@ button {
   display: grid;
   align-items: center;
   border: 1px solid gray;
-  height: 60px;
-  width: 300px;
+  height: 100px;
   background-color: lightgray;
   font-family: var(--font-family);
   font-size: var(--font-size);
@@ -113,7 +111,7 @@ button {
   }
 
   #display {
-    height: 60px;
+    height: 100px;
     width: 100%;
   }
 

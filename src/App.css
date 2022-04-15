@@ -2,6 +2,7 @@
   --font-family: "Orbitron", sans-serif;
   --font-size: 28px;
   --color: black;
+  --background-color: #2b221d;
 }
 
 body {
@@ -9,11 +10,16 @@ body {
   color: var(--color);
 }
 
+#container {
+  /* background-color: pink; */
+}
+
 #my-calculator {
-  background-color: #2b221d;
+  background-color: var(--background-color);
   display: flex;
   justify-content: center;
   padding: 20px;
+
   font-family: var(--font-family);
   font-size: var(--font-size);
   color: var(--color);
@@ -33,11 +39,12 @@ body {
 
 button {
   height: 60px;
-  width: 100px;
+  width: 100%;
 }
 
 #numpad {
-  width: 300px;
+  width: 100%;
+  height: 500px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   margin-top: 10px;
@@ -76,4 +83,41 @@ button {
   font-size: var(--font-size);
   color: var(--color);
   color: lightgray;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    /* background-color: lightblue; */
+    height: 100vh;
+  }
+
+  #my-calculator {
+    padding: 0px;
+    height: 100%;
+    height: 100vh;
+  }
+
+  #container {
+    width: 100%;
+    height: 100vh;
+  }
+
+  button {
+    height: 100%;
+    width: 100%;
+  }
+
+  #numpad {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  #display {
+    height: 60px;
+    width: 100%;
+  }
+
+  .input {
+    height: 60px;
+  }
 }

@@ -99,7 +99,7 @@ function App() {
   //
   return (
     <div id="my-calculator" className="App">
-      <div>
+      <div id="container">
         <div ref={displayRef} id="display">
           0
         </div>

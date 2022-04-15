@@ -1,30 +1,15 @@
-:root {
-  --font-family: "Orbitron", sans-serif;
-  --font-size: 28px;
-  --color: black;
-}
-
-body {
-  font-size: var(--font-size);
-  color: var(--color);
-}
-
 #my-calculator {
   background-color: #2b221d;
   display: flex;
   justify-content: center;
   padding: 20px;
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  color: var(--color);
+  font-family: "Orbitron", sans-serif;
 }
 
 .op {
   background-color: orange;
   border: 1px solid grey;
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  color: var(--color);
+  font-family: "Orbitron", sans-serif;
 }
 
 #equals {
@@ -51,9 +36,7 @@ button {
   height: 60px;
   width: 300px;
   background-color: lightgray;
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  color: var(--color);
+  font-family: "Orbitron", sans-serif;
 }
 
 .input {
@@ -64,16 +47,12 @@ button {
 .nums {
   background-color: lightgray;
   border: 1px solid gray;
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  color: var(--color);
+  font-family: "Orbitron", sans-serif;
 }
 
 .clear {
   background-color: dimgray;
   border: 1px solid gray;
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  color: var(--color);
+  font-family: "Orbitron", sans-serif;
   color: lightgray;
 }

@@ -46,18 +46,21 @@ function App() {
   //handle input for operator
   const handleInputForOperator = (e) => {
     const formulaTest = formula;
+    const lastItemInFormula = formulaTest
+      .split(",")
+      .join("")
+      .charAt(formulaTest.split(",").join("").length - 1);
     if (formula === "0") {
       return;
     }
-    if (
-      "+-*/".includes(
-        formulaTest
-          .split(",")
-          .join("")
-          .charAt(formulaTest.split(",").join("").length - 1)
-      )
-    ) {
-      return;
+    if ("+-*/".includes(lastItemInFormula)) {
+      if (lastItemInFormula === e.target.innerHTML) {
+        return;
+      } else {
+        const arr = formulaTest.split(",");
+        const formulaWithNewOperator = arr.slice(0, -2) + e.target.innerHTML;
+        setFormula(formulaWithNewOperator);
+      }
     } else {
       const operatorWithCommas = "," + e.target.innerHTML + ",";
       setFormula(formula + operatorWithCommas);

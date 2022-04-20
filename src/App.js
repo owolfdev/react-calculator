@@ -43,22 +43,33 @@ function App() {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
+  function findLastItemInFormula() {
+    const formulaTest = formula;
+    const lastItem = formulaTest.charAt(
+      formulaTest.split(",").join("").length - 1
+    );
+    console.log("formulaTest split , join ", formulaTest.split(",").join(""));
+    console.log("lastItem: ", lastItem);
+    console.log("lastItem length", lastItem.length);
+    return lastItem;
+  }
+
   //handle input for operator
   const handleInputForOperator = (e) => {
     const formulaTest = formula;
-    const lastItemInFormula = formulaTest
-      .split(",")
-      .join("")
-      .charAt(formulaTest.split(",").join("").length - 1);
+    const lastItemInFormula = findLastItemInFormula();
+    //console.log(lastItemInFormula);
     if (formula === "0") {
       return;
     }
+
     if ("+-*/".includes(lastItemInFormula)) {
       if (lastItemInFormula === e.target.innerHTML) {
         return;
       } else {
         const arr = formulaTest.split(",");
-        const formulaWithNewOperator = arr.slice(0, -2) + e.target.innerHTML;
+        const formulaWithNewOperator =
+          arr.slice(0, -2) + " " + e.target.innerHTML + " ";
         setFormula(formulaWithNewOperator);
       }
     } else {
@@ -95,7 +106,15 @@ function App() {
     if (e.target.id === "clear" || formula.length === 1) {
       setFormula("0");
     } else {
-      setFormula(formula.slice(0, -1));
+      //console.log("clear entry buddy");
+      const lastItemInFormula = findLastItemInFormula();
+      //console.log("lastItemInFormula: ", lastItemInFormula);
+      if (lastItemInFormula === ",") {
+        console.log("HEY last item is a comma");
+        setFormula(formula.slice(0, -2));
+      } else {
+        setFormula(formula.slice(0, -1));
+      }
     }
   };
 

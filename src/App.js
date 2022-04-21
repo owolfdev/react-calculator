@@ -21,6 +21,7 @@ function App() {
       }
     });
     displayRef.current.innerHTML = withCommas.join(" ");
+    //console.log("formula", formula);
   }, [formula]);
 
   const isOp = (item) => {
@@ -45,12 +46,8 @@ function App() {
 
   function findLastItemInFormula() {
     const formulaTest = formula;
-    const lastItem = formulaTest.charAt(
-      formulaTest.split(",").join("").length - 1
-    );
-    console.log("formulaTest split , join ", formulaTest.split(",").join(""));
-    console.log("lastItem: ", lastItem);
-    console.log("lastItem length", lastItem.length);
+    let lastItem = "";
+    lastItem = formulaTest.charAt(formulaTest.length - 1);
     return lastItem;
   }
 
@@ -58,30 +55,44 @@ function App() {
   const handleInputForOperator = (e) => {
     const formulaTest = formula;
     const lastItemInFormula = findLastItemInFormula();
-    //console.log(lastItemInFormula);
     if (formula === "0") {
       return;
     }
 
-    if ("+-*/".includes(lastItemInFormula)) {
-      if (lastItemInFormula === e.target.innerHTML) {
-        return;
-      } else {
-        const arr = formulaTest.split(",");
-        const formulaWithNewOperator =
-          arr.slice(0, -2) + " " + e.target.innerHTML + " ";
-        setFormula(formulaWithNewOperator);
-      }
+    if (isOp(lastItemInFormula)) {
+      const formulaTMP = formula.slice(0, -2);
+      setFormula(formulaTMP + "," + e.target.innerHTML);
     } else {
-      const operatorWithCommas = "," + e.target.innerHTML + ",";
-      setFormula(formula + operatorWithCommas);
+      setFormula(formula + "," + e.target.innerHTML);
+    }
+
+    if ("+-*/".includes(lastItemInFormula)) {
+      //   if (lastItemInFormula === e.target.innerHTML) {
+      //     // console.log(
+      //     //   "last item in formula INSIDE includes check: ",
+      //     //   lastItemInFormula
+      //     // );
+      //     return;
+      //   } else {
+      //     const arr = formulaTest.split(",");
+      //     const formulaWithNewOperator =
+      //       arr.slice(0, -2) + " " + e.target.innerHTML + " ";
+      //     setFormula(formulaWithNewOperator);
+      //   }
+      // } else {
+      //   const operatorWithCommas = "," + e.target.innerHTML;
+      //   setFormula(formula + operatorWithCommas);
+      //
     }
   };
 
   //handle input for numbers
   const handleInput = (e) => {
+    const lastItemInFormula = findLastItemInFormula();
     if (formula === "0") {
       setFormula(e.target.innerHTML);
+    } else if (isOp(lastItemInFormula)) {
+      setFormula(formula + "," + e.target.innerHTML);
     } else {
       setFormula(formula + e.target.innerHTML);
     }
@@ -89,9 +100,10 @@ function App() {
 
   //handle input for decimal place
   const handleInputForDecimalPlace = (e) => {
+    const lastItemInFormula = findLastItemInFormula();
     const formulaSplit = formula.split(",");
     const last = formulaSplit[formulaSplit.length - 1];
-    if (last.includes(".")) {
+    if (last.includes(".") || isOp(lastItemInFormula)) {
       return;
     } else {
       setFormula(formula + e.target.innerHTML);
@@ -99,18 +111,16 @@ function App() {
   };
 
   const handleCalculate = (e) => {
-    setFormula(eval(formula.split(",").join("")).toString());
+    const result = eval(formula.split(",").join("")).toString();
+    setFormula(result);
   };
 
   const handleClear = (e) => {
     if (e.target.id === "clear" || formula.length === 1) {
       setFormula("0");
     } else {
-      //console.log("clear entry buddy");
       const lastItemInFormula = findLastItemInFormula();
-      //console.log("lastItemInFormula: ", lastItemInFormula);
-      if (lastItemInFormula === ",") {
-        console.log("HEY last item is a comma");
+      if (lastItemInFormula === "," || lastItemInFormula === " ") {
         setFormula(formula.slice(0, -2));
       } else {
         setFormula(formula.slice(0, -1));

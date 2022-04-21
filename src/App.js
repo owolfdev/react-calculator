@@ -110,7 +110,7 @@ function App() {
     }
   };
 
-  const handleCalculate = (e) => {
+  const handleCalculate = () => {
     const result = eval(formula.split(",").join("")).toString();
     setFormula(result);
   };

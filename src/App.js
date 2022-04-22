@@ -67,22 +67,6 @@ function App() {
     }
 
     if ("+-*/".includes(lastItemInFormula)) {
-      //   if (lastItemInFormula === e.target.innerHTML) {
-      //     // console.log(
-      //     //   "last item in formula INSIDE includes check: ",
-      //     //   lastItemInFormula
-      //     // );
-      //     return;
-      //   } else {
-      //     const arr = formulaTest.split(",");
-      //     const formulaWithNewOperator =
-      //       arr.slice(0, -2) + " " + e.target.innerHTML + " ";
-      //     setFormula(formulaWithNewOperator);
-      //   }
-      // } else {
-      //   const operatorWithCommas = "," + e.target.innerHTML;
-      //   setFormula(formula + operatorWithCommas);
-      //
     }
   };
 

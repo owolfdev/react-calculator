@@ -96,7 +96,15 @@ function App() {
 
   const handleCalculate = () => {
     const result = eval(formula.split(",").join("")).toString();
-    setFormula(result);
+    const resultSplit = result.split(".");
+    let revisedResult;
+    if (resultSplit.length > 1) {
+      const reducedDecimalPlaces = resultSplit[1].slice(0, 4);
+      revisedResult = resultSplit[0] + "." + reducedDecimalPlaces;
+      setFormula(revisedResult);
+    } else {
+      setFormula(result);
+    }
   };
 
   const handleClear = (e) => {

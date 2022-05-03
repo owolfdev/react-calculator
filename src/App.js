@@ -10,7 +10,7 @@ function App() {
     const withCommas = formulaArrayTMP.map((item) => {
       if (isOp(item)) {
         return item;
-      } else if (isDecimal(item)) {
+      } else if (hasDecimal(item)) {
         const itemArray = item.split(".");
         const firstItem = itemArray[0];
         const secondItem = itemArray[1];
@@ -21,7 +21,6 @@ function App() {
       }
     });
     displayRef.current.innerHTML = withCommas.join(" ");
-    //console.log("formula", formula);
   }, [formula]);
 
   const isOp = (item) => {
@@ -32,7 +31,7 @@ function App() {
     }
   };
 
-  const isDecimal = (item) => {
+  const hasDecimal = (item) => {
     if (item.includes(".")) {
       return true;
     } else {
@@ -53,19 +52,16 @@ function App() {
 
   //handle input for operator
   const handleInputForOperator = (e) => {
-    const formulaTest = formula;
     const lastItemInFormula = findLastItemInFormula();
     if (formula === "0") {
       return;
     }
-
     if (isOp(lastItemInFormula)) {
       const formulaTMP = formula.slice(0, -2);
       setFormula(formulaTMP + "," + e.target.innerHTML);
     } else {
       setFormula(formula + "," + e.target.innerHTML);
     }
-
     if ("+-*/".includes(lastItemInFormula)) {
     }
   };
@@ -97,6 +93,7 @@ function App() {
   const handleCalculate = () => {
     const result = eval(formula.split(",").join("")).toString();
     const resultSplit = result.split(".");
+    //reduce the number of decimal spaces.
     let revisedResult;
     if (resultSplit.length > 1) {
       const reducedDecimalPlaces = resultSplit[1].slice(0, 4);

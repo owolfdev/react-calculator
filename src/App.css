@@ -9,7 +9,6 @@ body {
   font-size: var(--font-size);
   color: var(--color);
   box-sizing: border-box;
-  background-color: var(--background-color);
 }
 
 #display {

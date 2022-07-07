@@ -9,6 +9,7 @@ body {
   font-size: var(--font-size);
   color: var(--color);
   box-sizing: border-box;
+  background-color: pink;
 }
 
 #display {
@@ -80,7 +81,7 @@ button {
   color: lightgray;
 }
 
-@media only screen and (min-width: 600px) {
+/* @media only screen and (min-width: 600px) {
   body {
     display: flex;
     justify-content: center;
@@ -103,4 +104,4 @@ button {
     height: 100%;
     width: 100%;
   }
-}
+} */
